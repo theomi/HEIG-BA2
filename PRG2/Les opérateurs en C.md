@@ -140,3 +140,49 @@ i = 14; i ^= j;  // 1111 1000 => 248
 				i >>= 3; // 0001 1111 =>  31
 				i <<= 2; // 0111 1100 => 124
 ```
+
+## Usages fréquents (1 bit)
+
+```c
+// Déterminer la valeur d'un bit spécifique
+unsigned bit = 3u;
+unsigned valeur = 125u; // 0111 1101
+unsigned shift = valeur >> bit; // 0000 1111
+unsigned checkBit = (valeur >> bit) & 1u; // 0000 0001
+```
+
+```c
+// Mettre un bit à 0
+unsigned bit = 2u;
+unsigned valeur = 125u; // 0111 1101
+unsigned mask = 1u << bit; // 0000 0100
+unsigned bitTo0 = valeur & ~mask; // 0111 1001
+// Mettre un bit à 1
+unsigned bitTo1 = bitTo0 | mask; // 0111 1101
+// Mettre un bit à X (X à remplacer par 0 ou 1)
+unsigned valeur = (valeur & ~(1u << bit)) | (X << bit);
+// \ efface le bit / \ bit à X /
+```
+
+## Usages fréquents (mask)
+
+```c
+// effacer un ou plusieurs bits
+unsigned valeur = 125u; // 0111 1101
+unsigned mask = 15u; // ou 0xF // 0000 1111
+unsigned resetBits = valeur & ~mask; // 0111 0000
+```
+
+```c
+// setter un ou plusieurs bits
+unsigned valeur = 125u; // 0111 1101
+unsigned mask = 15u; // 0000 1111
+unsigned setBits = valeur | mask; // 0111 1111
+```
+
+```c
+// inverser (toggle) un ou plusieurs bits
+unsigned valeur = 125u; // 0111 1101
+unsigned mask = 15u; // 0000 1111
+unsigned toggleBits = valeur ^ mask; // 0111 0010
+```
